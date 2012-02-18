@@ -31,7 +31,6 @@ int tempReading;         // Analogue reading from the sensor
 //########################################################################################################################
 
 void setup() {
-//     Serial.begin(9600);
 
   rf12_initialize(myNodeID,freq,network); // Initialize RFM12 with settings defined above 
   rf12_sleep(0);                          // Put the RFM12 to sleep
@@ -60,14 +59,8 @@ void loop() {
   
   rfwrite(); // Send data via RF 
 
- // Serial.println(tempReading);  
-//  Serial.println(temperatureC);
-//  Serial.println(temptx.temp);
-
   Sleepy::loseSomeTime(5000); //JeeLabs power save function: enter low power mode for 60 seconds (valid range 16-65000 ms)
     
-//  delay(5000);
-
 }
 
 //--------------------------------------------------------------------------------------------------
