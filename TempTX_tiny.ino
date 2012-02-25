@@ -47,12 +47,20 @@ void loop() {
   digitalWrite(tempPower, HIGH); // turn TMP36 sensor on
 
   delay(10); // Allow 10ms for the sensor to be ready
-
-  tempReading = analogRead(tempPin); // Get the reading from the sensor
+ 
+  analogRead(tempPin); // throw away the first reading
+  
+  for(int i = 0; i < 10 ; i++) // take 10 more readings
+  {
+   tempReading += analogRead(tempPin); // accumulate readings
+  }
+  tempReading = tempReading / 10 ; // calculate the average
 
   digitalWrite(tempPower, LOW); // turn TMP36 sensor off
- 
-  double voltage = tempReading * (1100/1024); // Convert reading from sensor into millivolts
+
+//  double voltage = tempReading * (1100/1024); // Convert to mV (assume internal reference is accurate)
+  
+  double voltage = tempReading * 0.942382812; // Calibrated conversion to mV
 
   double temperatureC = (voltage - 500) / 10; // Convert to temperature in degrees C. 
 
